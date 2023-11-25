@@ -2,9 +2,9 @@
 
 namespace Pardalsalcap\LinterLeads;
 
+use Pardalsalcap\LinterLeads\Commands\LinterLeadsCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Pardalsalcap\LinterLeads\Commands\LinterLeadsCommand;
 
 class LinterLeadsServiceProvider extends PackageServiceProvider
 {
