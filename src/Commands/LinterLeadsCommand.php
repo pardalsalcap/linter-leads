@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Pardalsalcap\LinterLeads\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class LinterLeadsCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'linter-leads';
 
     public $description = 'My command';
 
