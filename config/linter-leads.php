@@ -7,9 +7,9 @@ return [
         'read',
         'follow_up',
         'fail',
-        'success'
+        'success',
     ],
-    'mappings'=>[
+    'mappings' => [
         'contact' => [
             'email' => 'email',
             'phone' => 'phone',
@@ -19,5 +19,5 @@ return [
         'newsletter_form' => [
             'email' => 'email',
         ],
-    ]
+    ],
 ];

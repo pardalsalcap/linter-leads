@@ -5,7 +5,7 @@ namespace Pardalsalcap\LinterLeads\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @property integer $id
+ * @property int $id
  * @property string $name
  * @property string $configuration
  * @property string $created_at

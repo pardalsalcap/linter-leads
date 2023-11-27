@@ -7,6 +7,7 @@ use Pardalsalcap\LinterLeads\Models\Lead;
 class EvaluateSpamPotential
 {
     protected $blacklistedWords = ['spamword1', 'spamword2']; // Add more as needed
+
     public function handle(Lead $lead, $next)
     {
         // Evaluate the spam potential of the lead
@@ -14,8 +15,7 @@ class EvaluateSpamPotential
         $threshold = 10;
         $lead->score = $spamScore;
         // Flag the lead as spam if it meets certain criteria
-        if($spamScore > $threshold/2)
-        {
+        if ($spamScore > $threshold / 2) {
             $lead->is_flagged = true;
         }
         if ($spamScore > $threshold) {
@@ -30,7 +30,7 @@ class EvaluateSpamPotential
         $score = 0;
 
         // Evaluate a max of links the message can contain
-        $score+= preg_match_all('/https?:\/\/\S+/i', $lead->message);
+        $score += preg_match_all('/https?:\/\/\S+/i', $lead->message);
 
         // Evaluate if the message contains any blacklisted words
         //foreach ($this->blacklistedWords as $word) {
@@ -41,13 +41,12 @@ class EvaluateSpamPotential
 
         // Evaluate id the message contains HTML
         if ($lead->message !== strip_tags($lead->message)) {
-            $score+=1;
+            $score += 1;
         }
 
         // Check if the same IP has any spam reported messages
-        if (Lead::where("ip", $lead->ip)->where("is_spam", true)->first())
-        {
-            $score+=10;
+        if (Lead::where('ip', $lead->ip)->where('is_spam', true)->first()) {
+            $score += 10;
         }
 
         return $score;

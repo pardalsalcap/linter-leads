@@ -10,5 +10,5 @@ interface FormStrategyInterface
 
     public function processData($data);
 
-    public function mapping ():array;
+    public function mapping(): array;
 }

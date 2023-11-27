@@ -3,7 +3,6 @@
 namespace Pardalsalcap\LinterLeads\Resources\LeadResource\Pages;
 
 use App\Filament\Resources\LeadResource;
-use Filament\Actions;
 use Filament\Resources\Pages\CreateRecord;
 
 class CreateLead extends CreateRecord

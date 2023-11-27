@@ -1,6 +1,7 @@
 <?php
 
 namespace Pardalsalcap\LinterLeads\Http\Controllers;
+
 use Illuminate\Http\Request;
 use Pardalsalcap\LinterLeads\Services\FormHandler;
 use Pardalsalcap\LinterLeads\Services\Strategies\ContactFormStrategy;
@@ -28,11 +29,12 @@ class LeadController extends App\Http\Controller
             case 'newsletter':
                 $strategy = new NewsletterSignupStrategy();
                 break;
-            // Add more cases as needed
+                // Add more cases as needed
         }
 
         // Handle the form with the selected strategy
         $formHandler = new FormHandler($strategy);
+
         return $formHandler->handle($request);
     }
 }

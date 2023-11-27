@@ -3,12 +3,12 @@
 namespace Pardalsalcap\LinterLeads\Resources\LeadResource\Pages;
 
 use App\Filament\Resources\LeadResource;
+use Filament\Actions;
+use Filament\Resources\Pages\ListRecords;
 use Pardalsalcap\LinterLeads\Resources\LeadResource\Widgets\LeadsChartLastMonth;
 use Pardalsalcap\LinterLeads\Resources\LeadResource\Widgets\LeadsChartLastYear;
 use Pardalsalcap\LinterLeads\Resources\LeadResource\Widgets\LeadsSuccess;
 use Pardalsalcap\LinterLeads\Resources\LeadResource\Widgets\LeadsTotal;
-use Filament\Actions;
-use Filament\Resources\Pages\ListRecords;
 
 class ListLeads extends ListRecords
 {
@@ -21,7 +21,6 @@ class ListLeads extends ListRecords
         ];
     }
 
-
     protected function getHeaderWidgets(): array
     {
         return [
@@ -31,7 +30,8 @@ class ListLeads extends ListRecords
             LeadsChartLastYear::class,
         ];
     }
-    public function getHeaderWidgetsColumns(): int | array
+
+    public function getHeaderWidgetsColumns(): int|array
     {
         return 2;
     }
