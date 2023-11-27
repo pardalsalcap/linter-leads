@@ -2,6 +2,7 @@
 
 namespace Pardalsalcap\LinterLeads;
 
+use Pardalsalcap\LinterLeads\Services\FormHandler;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Pardalsalcap\LinterLeads\Commands\LinterLeadsCommand;
@@ -19,7 +20,15 @@ class LinterLeadsServiceProvider extends PackageServiceProvider
             ->name('linter-leads')
             ->hasConfigFile()
             ->hasViews()
-            ->hasMigration('create_linter-leads_table')
+            ->hasTranslations()
+            ->hasMigration('create_linter_leads_table')
             ->hasCommand(LinterLeadsCommand::class);
+    }
+    public function register()
+    {
+        parent::register();
+        $this->app->singleton(FormHandler::class, function ($app) {
+            return new FormHandler();
+        });
     }
 }

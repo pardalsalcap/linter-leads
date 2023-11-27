@@ -10,22 +10,59 @@ return new class extends Migration
     {
         Schema::create('leads', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('surname')->nullable();
-            $table->string('email');
-            $table->string('phone')->nullable();
-            $table->string('company')->nullable();
-            $table->string('city')->nullable();
-            $table->string('state')->nullable();
-            $table->string('country')->nullable();
-            $table->string('subject')->nullable();
-            $table->text('message')->nullable();
-            $table->string('type', 32)->default('contact');
-            $table->string('ip', 16)->nullable();
-            $table->boolean('is_read')->default(0);
-            $table->boolean('is_spam')->default(0);
-            $table->boolean('is_success')->default(0);
-            $table->json('data')->nullable();
+            $table->string('name')->comment('Name of the contact');
+            $table->string('surname')->nullable()->comment('Surname of the contact');
+            $table->string('email')->comment('Email of the contact');
+            $table->string('phone')->nullable()->comment('Phone number of the contact');
+            $table->string('company')->nullable()->comment('Company of the contact');
+            $table->string('city')->nullable()->comment('City of the contact');
+            $table->string('state')->nullable()->comment('State of the contact');
+            $table->string('country')->nullable()->comment('Country of the contact');
+            $table->string('subject')->nullable()->comment('Subject received');
+            $table->text('message')->nullable()->comment('Message of the contact');
+            $table->string('source', 32)->default('contact')->comment('Source of the contact');
+            $table->string('ip', 45)->nullable()->comment('IP Address origin of the contact');
+            $table->boolean('is_read')->default(0)->comment('Has the lead been read?');
+            $table->boolean('is_spam')->default(0)->comment('Has the lead been marked as spam?');
+            $table->boolean('is_success')->default(0)->comment('Has the lead been marked as a success?');
+            $table->boolean('is_flagged')->default(0)->comment('Has the lead been flagged when entering?');
+            $table->integer('score')->unsigned()->default(0)->comment('Score given to the lead');
+            $table->string('status')->default('new')->comment('Status of the lead in the conversion funnel');
+            $table->json('data')->nullable()->comment('Additional data');
+            $table->unsignedBigInteger('assigned_to')->nullable()->comment('ID of the user who is dealing with the lead');
+            $table->timestamps();
+            $table->softDeletes();
+            $table->foreign('assigned_to')->references('id')->on('users')->onDelete('set null')->onUpdate('cascade');
+            $table->index('email');
+            $table->index('source');
+            $table->index('status');
+        });
+
+        Schema::create('lead_interactions', function (Blueprint $table) {
+            $table->id();
+            $table->bigInteger('lead_id')->unsigned()->nullable()->comment('ID of the lead the interaction refers to');
+            $table->string('type')->comment('Type of action');
+            $table->text('note')->nullable()->comment('Private note about the action');
+            $table->bigInteger('user_id')->unsigned()->nullable()->comment('ID of the user who has performed this interaction');
+            $table->string('status')->nullable()->comment('Status of the lead after the interaction');
+            $table->timestamps();
+            $table->softDeletes();
+            $table->foreign('lead_id')->references('id')->on('leads')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreign('user_id')->references('id')->on('users')->nullOnDelete()->cascadeOnUpdate();
+        });
+
+        Schema::create('lead_spam_filters', function (Blueprint $table) {
+            $table->id();
+            $table->string('name')->comment('Name of the filter or rule');
+            $table->text('configuration')->comment('Stores filter configuration or criteria');
+            $table->timestamps();
+        });
+
+        Schema::create('lead_configuration', function (Blueprint $table) {
+            $table->id();
+            $table->string('parameter')->comment('Name of the option or parameter');
+            $table->json('value')->nullable()->comment('Stores any type of configuration needed to apply the parameter');
+            $table->boolean('is_active')->comment('Indicates if the parameter is active or not');
             $table->timestamps();
         });
     }
@@ -37,6 +74,9 @@ return new class extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('lead_configuration');
+        Schema::dropIfExists('lead_spam_filters');
+        Schema::dropIfExists('lead_interactions');
         Schema::dropIfExists('leads');
     }
 };

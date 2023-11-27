@@ -18,8 +18,9 @@
     "require": {
         "php": "^8.1",
         "filament/filament": "^3.0-stable",
-        "spatie/laravel-package-tools": "^1.14.0",
-        "illuminate/contracts": "^10.0"
+        "flowframe/laravel-trend": "^0.1.5",
+        "illuminate/contracts": "^10.0",
+        "spatie/laravel-package-tools": "^1.14.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.9",
@@ -35,12 +36,7 @@
         "phpstan/phpstan-phpunit": "^1.0",
         "rayvenues/eloquent-model-generator": "^1.0"
     },
-    "repositories": [
-        {
-            "type": "path",
-            "url":  "/Users/pardalsalcap/Development/pardalsalcap/packages/linter/linter-leads"
-        }
-    ],
+
     "autoload": {
         "psr-4": {
             "Pardalsalcap\\LinterLeads\\": "src/",

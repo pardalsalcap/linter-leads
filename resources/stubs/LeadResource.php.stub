@@ -1,0 +1,7 @@
+<?php
+
+
+class LeadResource extends \Pardalsalcap\LinterLeads\Resources\LeadResource
+{
+
+}
