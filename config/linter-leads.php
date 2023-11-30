@@ -7,9 +7,9 @@ return [
         'read',
         'follow_up',
         'fail',
-        'success'
+        'success',
     ],
-    'mappings'=>[
+    'mappings' => [
         'contact' => [
             'email' => 'email',
             'phone' => 'phone',
@@ -20,7 +20,7 @@ return [
             'email' => 'email',
         ],
     ],
-    'lead_manager_email'=>'dani.casasnovas@gmail.com',
-    'lead_manager_name'=>'Dani Casasnovas',
-    'spam_score_threshold'=>5,
+    'lead_manager_email' => 'dani.casasnovas@gmail.com',
+    'lead_manager_name' => 'Dani Casasnovas',
+    'spam_score_threshold' => 5,
 ];

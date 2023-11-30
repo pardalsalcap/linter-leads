@@ -8,6 +8,7 @@ use Pardalsalcap\LinterLeads\Repositories\BlackListRepository;
 class EvaluateSpamPotential
 {
     protected int $score = 0;
+
     public function handle(Lead $lead, $next)
     {
         // Evaluate the spam potential of the lead
@@ -20,25 +21,24 @@ class EvaluateSpamPotential
     private function calculate($lead): void
     {
         // Evaluate a max of links the message can contain
-        $this->score+= preg_match_all('/https?:\/\/\S+/i', $lead->message);
+        $this->score += preg_match_all('/https?:\/\/\S+/i', $lead->message);
 
         // Evaluate if the message contains any blacklisted words
         $repository = new BlackListRepository();
         foreach ($repository->getBlackList() as $blacklistedWord) {
             if (stripos($lead->message, $blacklistedWord->word) !== false) {
-                $this->score+=1;
+                $this->score += 1;
             }
         }
 
         // Evaluate id the message contains HTML
         if ($lead->message !== strip_tags($lead->message)) {
-            $this->score+=1;
+            $this->score += 1;
         }
 
         // Check if the same IP has any spam reported messages
-        if (Lead::where("ip", $lead->ip)->where("is_spam", true)->first())
-        {
-            $this->score+=10;
+        if (Lead::where('ip', $lead->ip)->where('is_spam', true)->first()) {
+            $this->score += 10;
         }
     }
 }

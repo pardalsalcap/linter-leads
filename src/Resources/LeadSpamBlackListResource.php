@@ -2,27 +2,24 @@
 
 namespace Pardalsalcap\LinterLeads\Resources;
 
-use Filament\Tables\Actions\EditAction;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
+use Filament\Forms\Form;
 use Filament\Forms\Set;
+use Filament\Resources\Resource;
 use Filament\Tables\Actions\BulkActionGroup;
 use Filament\Tables\Actions\DeleteBulkAction;
+use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
+use Filament\Tables\Table;
 use Illuminate\Support\Str;
 use Pardalsalcap\LinterLeads\Models\LeadSpamBlackList;
-
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
-use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Pardalsalcap\LinterLeads\Resources\LeadSpamBlackListResource\Pages\CreateLeadSpamBlackList;
 use Pardalsalcap\LinterLeads\Resources\LeadSpamBlackListResource\Pages\EditLeadSpamBlackList;
 use Pardalsalcap\LinterLeads\Resources\LeadSpamBlackListResource\Pages\ListLeadSpamBlackLists;
-use Closure;
+
 class LeadSpamBlackListResource extends Resource
 {
     protected static ?string $model = LeadSpamBlackList::class;
@@ -35,7 +32,7 @@ class LeadSpamBlackListResource extends Resource
             ->schema([
                 Section::make()->schema([
                     TextInput::make('word')
-                        ->label(__("linter-leads::black_list.word"))
+                        ->label(__('linter-leads::black_list.word'))
                         ->autofocus()
                         ->required()
                         ->live(onBlur: true)
@@ -45,7 +42,7 @@ class LeadSpamBlackListResource extends Resource
                         ->minLength(3)
                         ->maxLength(255),
                     TextInput::make('slug')
-                        ->label(__("linter-leads::black_list.slug"))
+                        ->label(__('linter-leads::black_list.slug'))
                         ->autofocus()
                         ->required()
                         ->minLength(3)
@@ -53,9 +50,9 @@ class LeadSpamBlackListResource extends Resource
                         ->unique(ignoreRecord: true)
                         ->maxLength(255),
                     Toggle::make('is_active')
-                        ->label(__("linter-leads::black_list.is_active"))
+                        ->label(__('linter-leads::black_list.is_active'))
                         ->default(true),
-                ])
+                ]),
 
             ]);
     }
@@ -65,11 +62,11 @@ class LeadSpamBlackListResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('word')
-                    ->label(__("linter-leads::black_list.word"))
+                    ->label(__('linter-leads::black_list.word'))
                     ->searchable()
                     ->sortable(),
                 ToggleColumn::make('is_active')
-                    ->label(__("linter-leads::black_list.is_active"))
+                    ->label(__('linter-leads::black_list.is_active'))
                     ->sortable(),
 
             ])

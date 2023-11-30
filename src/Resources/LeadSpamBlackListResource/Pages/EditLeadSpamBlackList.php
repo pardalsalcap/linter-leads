@@ -17,7 +17,7 @@ class EditLeadSpamBlackList extends EditRecord
             Actions\DeleteAction::make()->after(function () {
                 $repository = new BlackListRepository();
                 $repository->refreshCache();
-           }),
+            }),
         ];
     }
 

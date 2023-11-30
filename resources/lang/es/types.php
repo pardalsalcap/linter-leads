@@ -1,5 +1,6 @@
 <?php
+
 return [
-    'contact'=>'Formulario de contacto',
-    'newsletter'=>'Suscripción al newsletter',
+    'contact' => 'Formulario de contacto',
+    'newsletter' => 'Suscripción al newsletter',
 ];

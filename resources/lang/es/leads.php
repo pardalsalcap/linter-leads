@@ -50,7 +50,7 @@ return [
     'stats_unread_title' => 'Sin leer',
     'stats_unread_description' => 'Un total de :ls leads estan sin abrir',
 
-    'view_title'=>'Detalles del contacto recibido',
-    'contact_source_field'=>'Procedencia',
+    'view_title' => 'Detalles del contacto recibido',
+    'contact_source_field' => 'Procedencia',
 
 ];

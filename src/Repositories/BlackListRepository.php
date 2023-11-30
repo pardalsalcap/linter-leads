@@ -8,8 +8,7 @@ class BlackListRepository
 {
     public function __construct()
     {
-        if(!Cache::has('blacklist'))
-        {
+        if (! Cache::has('blacklist')) {
             $this->refreshCache();
         }
     }
@@ -22,10 +21,10 @@ class BlackListRepository
 
     public function getBlackList()
     {
-        if(!Cache::has('blacklist'))
-        {
+        if (! Cache::has('blacklist')) {
             $this->refreshCache();
         }
+
         return Cache::get('blacklist');
     }
 }

@@ -1,9 +1,10 @@
 <?php
+
 return [
-    'pre_header'=>'Nuevo lead desde tu web',
-    'subject'=>'Nuevo Lead desde la web!',
-    'salutation'=>'Hola,',
-    'header'=>'¡Has recibido un nuevo lead desde la web!<br /><br />Esta es la información que el cliente ha dejado al rellenar el formulario.',
+    'pre_header' => 'Nuevo lead desde tu web',
+    'subject' => 'Nuevo Lead desde la web!',
+    'salutation' => 'Hola,',
+    'header' => '¡Has recibido un nuevo lead desde la web!<br /><br />Esta es la información que el cliente ha dejado al rellenar el formulario.',
     'email_field' => 'Email',
     'phone_field' => 'Teléfono',
     'name_field' => 'Nombre',
