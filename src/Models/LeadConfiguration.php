@@ -14,20 +14,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class LeadConfiguration extends Model
 {
-    /**
-     * The table associated with the model.
-     *
-     * @var string
-     */
-    /**
-     * The table associated with the model.
-     *
-     * @var string
-     */
     protected $table = 'lead_configuration';
-
-    /**
-     * @var array
-     */
+    protected $casts = [
+        'value' => 'array',
+    ];
     protected $fillable = ['parameter', 'value', 'is_active', 'created_at', 'updated_at'];
 }

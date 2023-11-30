@@ -15,43 +15,33 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
-use Pardalsalcap\LinterLeads\Models\LeadSpamBlackList;
-use Pardalsalcap\LinterLeads\Resources\LeadSpamBlackListResource\Pages\CreateLeadSpamBlackList;
-use Pardalsalcap\LinterLeads\Resources\LeadSpamBlackListResource\Pages\EditLeadSpamBlackList;
-use Pardalsalcap\LinterLeads\Resources\LeadSpamBlackListResource\Pages\ListLeadSpamBlackLists;
+use Pardalsalcap\LinterLeads\Models\LeadConfiguration;
+use Pardalsalcap\LinterLeads\Repositories\LeadConfigurationRepository;
+use Pardalsalcap\LinterLeads\Resources\LeadConfigurationResource\Pages\CreateLeadConfiguration;
+use Pardalsalcap\LinterLeads\Resources\LeadConfigurationResource\Pages\EditLeadConfiguration;
+use Pardalsalcap\LinterLeads\Resources\LeadConfigurationResource\Pages\ListLeadConfiguration;
 
-class LeadSpamBlackListResource extends Resource
+
+class LeadConfigurationResource extends Resource
 {
-    protected static ?string $model = LeadSpamBlackList::class;
+    protected static ?string $model = LeadConfiguration::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-cog-6-tooth';
-    protected static ?int $navigationSort = 3;
+    protected static ?string $navigationIcon = 'heroicon-o-cog-8-tooth';
+    protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Section::make()->schema([
-                    TextInput::make('word')
-                        ->label(__('linter-leads::black_list.word'))
-                        ->autofocus()
-                        ->required()
-                        ->live(onBlur: true)
-                        ->afterStateUpdated(function (Set $set, string $state) {
-                            $set('slug', Str::slug($state));
-                        })
-                        ->minLength(3)
-                        ->maxLength(255),
-                    TextInput::make('slug')
-                        ->label(__('linter-leads::black_list.slug'))
+                    TextInput::make('parameter')
+                        ->label(__('linter-leads::configuration.parameter'))
                         ->autofocus()
                         ->required()
                         ->minLength(3)
-                        ->readOnly()
-                        ->unique(ignoreRecord: true)
                         ->maxLength(255),
                     Toggle::make('is_active')
-                        ->label(__('linter-leads::black_list.is_active'))
+                        ->label(__('linter-leads::configuration.is_active'))
                         ->default(true),
                 ]),
 
@@ -62,12 +52,19 @@ class LeadSpamBlackListResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('word')
-                    ->label(__('linter-leads::black_list.word'))
+                TextColumn::make('parameter')
+                    ->label(__('linter-leads::configuration.parameter'))
                     ->searchable()
+                    ->formatStateUsing(function (string $state, LeadConfiguration $record) {
+                        return __("linter-leads::parameters.".$state);
+                    })
+                    ->wrap()
                     ->sortable(),
                 ToggleColumn::make('is_active')
-                    ->label(__('linter-leads::black_list.is_active'))
+                    ->label(__('linter-leads::configuration.is_active'))
+                    ->afterStateUpdated(function ($record, $state) {
+                        (new LeadConfigurationRepository())->refreshCache();
+                    })
                     ->sortable(),
 
             ])
@@ -94,29 +91,29 @@ class LeadSpamBlackListResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => ListLeadSpamBlackLists::route('/'),
-            'create' => CreateLeadSpamBlackList::route('/create'),
-            'edit' => EditLeadSpamBlackList::route('/{record}/edit'),
+            'index' => ListLeadConfiguration::route('/'),
+            'create' => CreateLeadConfiguration::route('/create'),
+            'edit' => EditLeadConfiguration::route('/{record}/edit'),
         ];
     }
 
     public static function getNavigationLabel(): string
     {
-        return __('linter-leads::black_list.navigation');
+        return __('linter-leads::configuration.navigation');
     }
 
     public static function getModelLabel(): string
     {
-        return __('linter-leads::black_list.model_label');
+        return __('linter-leads::configuration.model_label');
     }
 
     public static function getPluralModelLabel(): string
     {
-        return __('linter-leads::black_list.model_label_plural');
+        return __('linter-leads::configuration.model_label_plural');
     }
 
     public static function getNavigationGroup(): ?string
     {
-        return __('linter-leads::black_list.navigation_group');
+        return __('linter-leads::configuration.navigation_group');
     }
 }

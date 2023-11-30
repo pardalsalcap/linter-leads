@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Pardalsalcap\LinterLeads\Models\Lead;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<Lead>
+ * @extends Factory<Lead>
  */
 class LeadFactory extends Factory
 {
@@ -15,7 +15,7 @@ class LeadFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition(): array
+    public function definition()
     {
         return [
             'name' => fake()->name(),

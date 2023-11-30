@@ -4,13 +4,16 @@ namespace Pardalsalcap\LinterLeads\Pipelines;
 
 use Pardalsalcap\LinterLeads\Models\Lead;
 use Pardalsalcap\LinterLeads\Repositories\BlackListRepository;
+use Pardalsalcap\LinterLeads\Repositories\LeadConfigurationRepository;
 
 class EvaluateSpamPotential
 {
     protected int $score = 0;
+    protected LeadConfigurationRepository $repository;
 
     public function handle(Lead $lead, $next)
     {
+        $this->repository = new LeadConfigurationRepository();
         // Evaluate the spam potential of the lead
         $this->calculate($lead);
         $lead->score = $lead->score + $this->score;
@@ -20,25 +23,50 @@ class EvaluateSpamPotential
 
     private function calculate($lead): void
     {
-        // Evaluate a max of links the message can contain
-        $this->score += preg_match_all('/https?:\/\/\S+/i', $lead->message);
+        $this->evaluateLinks($lead);
+        $this->evaluateBlackList($lead);
+        $this->evaluateHtml($lead);
+        $this->evaluateIp($lead);
+    }
 
-        // Evaluate if the message contains any blacklisted words
-        $repository = new BlackListRepository();
-        foreach ($repository->getBlackList() as $blacklistedWord) {
-            if (stripos($lead->message, $blacklistedWord->word) !== false) {
+    protected function evaluateLinks(Lead $lead)
+    {
+        // Evaluate a max of links the message can contain
+        if ($this->repository->getParameterStatus('check_links')) {
+            $this->score += preg_match_all('/https?:\/\/\S+/i', $lead->message);
+        }
+    }
+
+    public function evaluateHtml(Lead $lead)
+    {
+        // Evaluate if the message contains any HTML
+        if ($this->repository->getParameterStatus('check_html')) {
+            if ($lead->message !== strip_tags($lead->message)) {
                 $this->score += 1;
             }
         }
+    }
 
-        // Evaluate id the message contains HTML
-        if ($lead->message !== strip_tags($lead->message)) {
-            $this->score += 1;
+    public function evaluateBlackList(Lead $lead)
+    {
+        // Evaluate if the message contains any blacklisted words
+        if ($this->repository->getParameterStatus('check_black_list')) {
+            $repository = new BlackListRepository();
+            foreach ($repository->getBlackList() as $blacklistedWord) {
+                if (stripos($lead->message, $blacklistedWord->word) !== false) {
+                    $this->score += 1;
+                }
+            }
         }
+    }
 
+    public function evaluateIp (Lead $lead)
+    {
         // Check if the same IP has any spam reported messages
-        if (Lead::where('ip', $lead->ip)->where('is_spam', true)->first()) {
-            $this->score += 10;
+        if ($this->repository->getParameterStatus('check_ip')) {
+            if (Lead::where('ip', $lead->ip)->where('is_spam', true)->first()) {
+                $this->score += 10;
+            }
         }
     }
 }
