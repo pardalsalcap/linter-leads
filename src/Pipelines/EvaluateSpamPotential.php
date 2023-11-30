@@ -3,54 +3,43 @@
 namespace Pardalsalcap\LinterLeads\Pipelines;
 
 use Pardalsalcap\LinterLeads\Models\Lead;
+use Pardalsalcap\LinterLeads\Repositories\BlackListRepository;
 
 class EvaluateSpamPotential
 {
-    protected $blacklistedWords = ['spamword1', 'spamword2']; // Add more as needed
+    protected int $score = 0;
     public function handle(Lead $lead, $next)
     {
         // Evaluate the spam potential of the lead
-        $spamScore = $this->calculateSpamScore($lead);
-        $threshold = 10;
-        $lead->score = $spamScore;
-        // Flag the lead as spam if it meets certain criteria
-        if($spamScore > $threshold/2)
-        {
-            $lead->is_flagged = true;
-        }
-        if ($spamScore > $threshold) {
-            $lead->is_spam = true;
-        }
+        $this->calculate($lead);
+        $lead->score = $lead->score + $this->score;
 
         return $next($lead);
     }
 
-    private function calculateSpamScore($lead): int
+    private function calculate($lead): void
     {
-        $score = 0;
-
         // Evaluate a max of links the message can contain
-        $score+= preg_match_all('/https?:\/\/\S+/i', $lead->message);
+        $this->score+= preg_match_all('/https?:\/\/\S+/i', $lead->message);
 
         // Evaluate if the message contains any blacklisted words
-        //foreach ($this->blacklistedWords as $word) {
-        //    if (stripos($value, $word) !== false) {
-        //        $fail('The :attribute contains invalid content.');
-        //     }
-        //}
+        $repository = new BlackListRepository();
+        foreach ($repository->getBlackList() as $blacklistedWord) {
+            if (stripos($lead->message, $blacklistedWord->word) !== false) {
+                $this->score+=1;
+            }
+        }
 
         // Evaluate id the message contains HTML
         if ($lead->message !== strip_tags($lead->message)) {
-            $score+=1;
+            $this->score+=1;
         }
 
         // Check if the same IP has any spam reported messages
         if (Lead::where("ip", $lead->ip)->where("is_spam", true)->first())
         {
-            $score+=10;
+            $this->score+=10;
         }
-
-        return $score;
     }
 }
 /**

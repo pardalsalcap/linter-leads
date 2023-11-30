@@ -25,4 +25,5 @@ return [
 
     'error_saving_lead'=>'Se ha producido un error al enviar tu mensaje, por favor inténtalo de nuevo más tarde',
     'success_saving_lead'=>'Se ha enviado tu mensaje correctamente, en breve nos pondremos en contacto contigo',
+    'send_another_message'=>'Enviar otro mensaje',
 ];

@@ -13,7 +13,7 @@ class ViewLead extends ViewRecord
 
     public function getTitle(): string|Htmlable
     {
-        return __("linter::leads.view_title", ["name"=>$this->record->name, 'date'=>$this->record->created_at->format(config('linter.date_time_format_tables'))]);
+        return __("linter-leads::leads.view_title", ["name"=>$this->record->name, 'date'=>$this->record->created_at->format(config('linter.date_time_format_tables'))]);
     }
 
 

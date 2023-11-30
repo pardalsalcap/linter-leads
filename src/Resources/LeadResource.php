@@ -53,9 +53,9 @@ class LeadResource extends Resource
                     ->label(__("linter-leads::leads.contact_email_field"))
                     ->searchable(['name', 'email'])
                     ->formatStateUsing(function (Lead $record) {
-                        return (!empty($record->name)? $record->name."<br />" :"").$record->email;
+                        return (!empty($record->name) ? $record->name . "<br />" : "") . $record->email;
                     })
-                ->html(),
+                    ->html(),
                 TextColumn::make('created_at')
                     ->label(__("linter-leads::leads.contact_created_at_field"))
                     ->dateTime(config('linter.date_time_format_tables'))
@@ -213,6 +213,9 @@ class LeadResource extends Resource
                     ->schema([
                         Section::make(__("linter-leads::leads.contact_metadata"))
                             ->schema([
+                                TextEntry::make('source')
+                                    ->label(__("linter-leads::leads.contact_source_field"))
+                                    ->formatStateUsing(fn(string $state) => __("linter-leads::types." . $state)),
                                 TextEntry::make('created_at')
                                     ->label(__("linter-leads::leads.contact_created_at_field"))
                                     ->dateTime(config('linter.date_time_format_tables')),

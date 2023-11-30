@@ -26,7 +26,7 @@ return new class extends Migration
             $table->boolean('is_spam')->default(0)->comment('Has the lead been marked as spam?');
             $table->boolean('is_success')->default(0)->comment('Has the lead been marked as a success?');
             $table->boolean('is_flagged')->default(0)->comment('Has the lead been flagged when entering?');
-            $table->integer('score')->unsigned()->default(0)->comment('Score given to the lead');
+            $table->integer('score')->default(0)->comment('Score given to the lead');
             $table->string('status')->default('new')->comment('Status of the lead in the conversion funnel');
             $table->json('data')->nullable()->comment('Additional data');
             $table->unsignedBigInteger('assigned_to')->nullable()->comment('ID of the user who is dealing with the lead');
@@ -54,7 +54,16 @@ return new class extends Migration
         Schema::create('lead_spam_filters', function (Blueprint $table) {
             $table->id();
             $table->string('name')->comment('Name of the filter or rule');
-            $table->text('configuration')->comment('Stores filter configuration or criteria');
+            $table->boolean('is_active')->comment('Status of the rule');
+            $table->json('configuration')->comment('Stores filter configuration or criteria');
+            $table->timestamps();
+        });
+
+        Schema::create('lead_spam_black_list', function (Blueprint $table) {
+            $table->id();
+            $table->string('word')->comment('Black listed word');
+            $table->string('slug')->unique()->comment('Black listed in slug format to avoid duplicates');
+            $table->boolean('is_active')->comment('Status of the black listed word');
             $table->timestamps();
         });
 
@@ -74,6 +83,7 @@ return new class extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('lead_spam_black_list');
         Schema::dropIfExists('lead_configuration');
         Schema::dropIfExists('lead_spam_filters');
         Schema::dropIfExists('lead_interactions');

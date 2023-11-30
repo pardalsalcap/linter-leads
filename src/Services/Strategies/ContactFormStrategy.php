@@ -4,6 +4,8 @@ namespace Pardalsalcap\LinterLeads\Services\Strategies;
 
 use Pardalsalcap\LinterLeads\Models\Lead;
 use Exception;
+use Pardalsalcap\LinterLeads\Pipelines\ApplyLeadScore;
+use Pardalsalcap\LinterLeads\Pipelines\EvaluatePositivePotential;
 use Pardalsalcap\LinterLeads\Pipelines\EvaluateSpamPotential;
 use Illuminate\Support\Facades\Pipeline;
 
@@ -27,13 +29,17 @@ class ContactFormStrategy implements FormStrategyInterface
     {
         $lead = new Lead();
         $lead->fill($leadData);
-
+        $lead->source = $this->source;
+        $lead->score = 0;
         $lead = Pipeline::send($lead)
             ->through([
-                EvaluateSpamPotential::class
+                EvaluateSpamPotential::class,
+                EvaluatePositivePotential::class,
+                ApplyLeadScore::class
             ])
-            ->then(fn(Lead $user) => $lead);
-        dd($lead);
+
+            ->then(fn(Lead $lead) => $lead);
+
         if (!$lead->save()) {
             throw new Exception(__("linter-leads::form.error_saving_lead"));
         }

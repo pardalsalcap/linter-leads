@@ -16,8 +16,11 @@ return [
             'name' => 'name',
             'message' => 'message',
         ],
-        'newsletter_form' => [
+        'newsletter' => [
             'email' => 'email',
         ],
-    ]
+    ],
+    'lead_manager_email'=>'dani.casasnovas@gmail.com',
+    'lead_manager_name'=>'Dani Casasnovas',
+    'spam_score_threshold'=>5,
 ];
