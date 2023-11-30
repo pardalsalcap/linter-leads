@@ -6,7 +6,6 @@ use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
-use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables\Actions\BulkActionGroup;
 use Filament\Tables\Actions\DeleteBulkAction;
@@ -14,19 +13,18 @@ use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
-use Illuminate\Support\Str;
 use Pardalsalcap\LinterLeads\Models\LeadConfiguration;
 use Pardalsalcap\LinterLeads\Repositories\LeadConfigurationRepository;
 use Pardalsalcap\LinterLeads\Resources\LeadConfigurationResource\Pages\CreateLeadConfiguration;
 use Pardalsalcap\LinterLeads\Resources\LeadConfigurationResource\Pages\EditLeadConfiguration;
 use Pardalsalcap\LinterLeads\Resources\LeadConfigurationResource\Pages\ListLeadConfiguration;
 
-
 class LeadConfigurationResource extends Resource
 {
     protected static ?string $model = LeadConfiguration::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-cog-8-tooth';
+
     protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
@@ -56,7 +54,7 @@ class LeadConfigurationResource extends Resource
                     ->label(__('linter-leads::configuration.parameter'))
                     ->searchable()
                     ->formatStateUsing(function (string $state, LeadConfiguration $record) {
-                        return __("linter-leads::parameters.".$state);
+                        return __('linter-leads::parameters.'.$state);
                     })
                     ->wrap()
                     ->sortable(),
