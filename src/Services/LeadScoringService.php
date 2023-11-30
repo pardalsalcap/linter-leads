@@ -2,8 +2,10 @@
 
 namespace Pardalsalcap\LinterLeads\Services;
 
-class LeadScoringService {
-    public function calculateScore(Lead $lead) {
+class LeadScoringService
+{
+    public function calculateScore(Lead $lead)
+    {
         $score = 0;
 
         // Add points based on defined criteria

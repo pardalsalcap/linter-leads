@@ -2,10 +2,13 @@
 
 namespace Pardalsalcap\LinterLeads\Services\Strategies;
 
-class NewsletterSignupStrategy implements FormStrategyInterface {
-    public function handle(array $formData) {
+class NewsletterSignupStrategy implements FormStrategyInterface
+{
+    public function handle(array $formData)
+    {
         // Handle newsletter signup specific logic
     }
+
     public function standardizeFormData($formData)
     {
         // Implement your logic to standardize the form data

@@ -1,9 +1,10 @@
 <?php
+
 return [
-    'new'=>'Nuevo',
-    'read'=>'Leído',
-    'follow_up'=>'Seguimiento',
-    'fail'=>'Descartado',
-    'success'=>'Éxito',
+    'new' => 'Nuevo',
+    'read' => 'Leído',
+    'follow_up' => 'Seguimiento',
+    'fail' => 'Descartado',
+    'success' => 'Éxito',
 
 ];

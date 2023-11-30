@@ -5,10 +5,10 @@ namespace Pardalsalcap\LinterLeads\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @property integer $id
+ * @property int $id
  * @property string $parameter
  * @property mixed $value
- * @property boolean $is_active
+ * @property bool $is_active
  * @property string $created_at
  * @property string $updated_at
  */

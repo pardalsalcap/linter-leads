@@ -2,14 +2,15 @@
 
 namespace Pardalsalcap\LinterLeads\Resources\LeadResource\Widgets;
 
-use Pardalsalcap\LinterLeads\Models\Lead;
 use Filament\Widgets\ChartWidget as BaseWidget;
 use Flowframe\Trend\Trend;
 use Flowframe\Trend\TrendValue;
+use Pardalsalcap\LinterLeads\Models\Lead;
 
 class LeadsChartLastMonth extends BaseWidget
 {
     protected int|string|array $columnSpan = 1;
+
     protected static ?string $heading = 'Leads Recibidos este mes';
 
     protected function getData(): array
@@ -24,7 +25,7 @@ class LeadsChartLastMonth extends BaseWidget
         $data_success = Trend::query(
             Lead::query()
                 ->where('is_success', true)
-            )
+        )
             ->between(
                 start: now()->subMonth(),
                 end: now(),
@@ -36,16 +37,16 @@ class LeadsChartLastMonth extends BaseWidget
             'datasets' => [
                 [
                     'label' => 'Leads',
-                    'data' => $data->map(fn(TrendValue $value) => $value->aggregate),
+                    'data' => $data->map(fn (TrendValue $value) => $value->aggregate),
                 ],
                 [
                     'label' => 'Success',
                     'backgroundColor' => '#08A045',
-                        'borderColor' => '#08A045',
-                    'data' => $data_success->map(fn(TrendValue $value) => $value->aggregate),
+                    'borderColor' => '#08A045',
+                    'data' => $data_success->map(fn (TrendValue $value) => $value->aggregate),
                 ],
             ],
-            'labels' => $data->map(fn(TrendValue $value) => $value->date),
+            'labels' => $data->map(fn (TrendValue $value) => $value->date),
         ];
     }
 
@@ -53,7 +54,6 @@ class LeadsChartLastMonth extends BaseWidget
     {
         return 'line';
     }
-
 
     protected function getColumns(): int
     {
