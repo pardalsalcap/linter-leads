@@ -1,13 +1,12 @@
 <?php
 
-
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Pardalsalcap\LinterLeads\Models\Lead;
 
 /**
  * @extends Factory<Lead>
  */
-class   LeadFactory extends Factory
+class LeadFactory extends Factory
 {
     /**
      * Define the model's default state.
