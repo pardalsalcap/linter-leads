@@ -17,8 +17,11 @@ class LinterLeadsCommand extends Command
         'LeadConfiguration',
         'LeadInteraction',
     ];
+
     protected string $models_path = '';
+
     protected string $resources_path = '';
+
     protected string $stubs_path = '';
 
     protected array $resources = [
@@ -26,6 +29,7 @@ class LinterLeadsCommand extends Command
         'LeadSpamBlackListResource',
         'LeadConfigurationResource',
     ];
+
     protected array $default_configuration = [
         'check_html',
         'check_links',
@@ -35,7 +39,7 @@ class LinterLeadsCommand extends Command
 
     public function handle(): int
     {
-        $this->stubs_path = __DIR__ . '/../../resources/stubs/';
+        $this->stubs_path = __DIR__.'/../../resources/stubs/';
         $this->models_path = app_path('Models/');
         $this->resources_path = app_path('Filament/Resources/');
 
@@ -51,8 +55,6 @@ class LinterLeadsCommand extends Command
             }
         }
 
-
-
         if ($this->confirm('Do you wish to populate the configuration table?')) {
             foreach ($this->default_configuration as $config) {
                 \Pardalsalcap\LinterLeads\Models\LeadConfiguration::firstOrCreate([
@@ -64,28 +66,23 @@ class LinterLeadsCommand extends Command
         }
 
         if ($this->confirm('Do you wish to copy the models?')) {
-            foreach($this->models as $model)
-            {
-                if (!File::exists($this->models_path . $model . '.php')) {
-                    File::copy($this->stubs_path . $model . '.php.stub', $this->models_path . $model . '.php');
-                    $this->info($model . '.php copied successfully');
-                }
-                else
-                {
-                    $this->info($model . '.php already exists, skipping...');
+            foreach ($this->models as $model) {
+                if (! File::exists($this->models_path.$model.'.php')) {
+                    File::copy($this->stubs_path.$model.'.php.stub', $this->models_path.$model.'.php');
+                    $this->info($model.'.php copied successfully');
+                } else {
+                    $this->info($model.'.php already exists, skipping...');
                 }
             }
         }
 
         if ($this->confirm('Do you wish to copy the Resources?')) {
             foreach ($this->resources as $resource) {
-                if (!File::exists($this->resources_path . $resource . '.php')) {
-                    File::copy($this->stubs_path . $resource . '.php.stub', $this->resources_path . $resource . '.php');
-                    $this->info($resource . '.php copied successfully');
-                }
-                else
-                {
-                    $this->info($resource . '.php already exists, skipping...');
+                if (! File::exists($this->resources_path.$resource.'.php')) {
+                    File::copy($this->stubs_path.$resource.'.php.stub', $this->resources_path.$resource.'.php');
+                    $this->info($resource.'.php copied successfully');
+                } else {
+                    $this->info($resource.'.php already exists, skipping...');
                 }
             }
         }
