@@ -1,0 +1,7 @@
+<?php
+namespace App\Models;
+
+class LeadSpamBlackList extends \Pardalsalcap\LinterLeads\Models\LeadSpamBlackList
+{
+
+}

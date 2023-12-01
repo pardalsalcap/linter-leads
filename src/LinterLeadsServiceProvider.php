@@ -19,7 +19,8 @@ class LinterLeadsServiceProvider extends PackageServiceProvider
             ->name('linter-leads')
             ->hasConfigFile()
             ->hasViews()
-            ->hasMigration('create_linter-leads_table')
+            ->hasTranslations()
+            ->hasMigration('create_linter_leads_table')
             ->hasCommand(LinterLeadsCommand::class);
     }
 }

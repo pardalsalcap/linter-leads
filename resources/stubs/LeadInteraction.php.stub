@@ -1,0 +1,7 @@
+<?php
+namespace App\Models;
+
+class LeadInteraction extends \Pardalsalcap\LinterLeads\Models\LeadInteraction
+{
+
+}
