@@ -2,9 +2,9 @@
 
 namespace Pardalsalcap\LinterLeads\Resources\LeadResource\Pages;
 
-use Pardalsalcap\LinterLeads\Resources\LeadResource;
 use Filament\Resources\Pages\ViewRecord;
 use Illuminate\Contracts\Support\Htmlable;
+use Pardalsalcap\LinterLeads\Resources\LeadResource;
 
 class ViewLead extends ViewRecord
 {
