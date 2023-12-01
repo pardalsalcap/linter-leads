@@ -1,5 +1,5 @@
 <?php
-
+namespace App\Filament\Resources;
 
 class LeadResource extends \Pardalsalcap\LinterLeads\Resources\LeadResource
 {
