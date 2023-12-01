@@ -14,7 +14,7 @@ class LeadConfigurationRepository
         }
     }
 
-    public function refreshCache():void
+    public function refreshCache(): void
     {
         $configuration = LeadConfiguration::where('is_active', true)->get();
         Cache::forever('lead_configuration', $configuration);
@@ -33,16 +33,18 @@ class LeadConfigurationRepository
     {
         $configuration = $this->getConfiguration();
         $parameter = $configuration->where('parameter', $parameter)->first();
+
         return $parameter->value;
     }
 
-    public function getParameterStatus (string $parameter):bool
+    public function getParameterStatus(string $parameter): bool
     {
         $configuration = $this->getConfiguration();
         $parameter = $configuration->where('parameter', $parameter)->first();
-        if (!$parameter){
+        if (! $parameter) {
             return false;
         }
+
         return (bool) $parameter->is_active;
     }
 }

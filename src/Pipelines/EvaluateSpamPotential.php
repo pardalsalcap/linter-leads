@@ -9,6 +9,7 @@ use Pardalsalcap\LinterLeads\Repositories\LeadConfigurationRepository;
 class EvaluateSpamPotential
 {
     protected int $score = 0;
+
     protected LeadConfigurationRepository $repository;
 
     public function handle(Lead $lead, $next)
@@ -60,7 +61,7 @@ class EvaluateSpamPotential
         }
     }
 
-    public function evaluateIp (Lead $lead)
+    public function evaluateIp(Lead $lead)
     {
         // Check if the same IP has any spam reported messages
         if ($this->repository->getParameterStatus('check_ip')) {
