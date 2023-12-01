@@ -5,6 +5,7 @@ namespace Pardalsalcap\LinterLeads\Services\Strategies;
 class NewsletterSignupStrategy implements FormStrategyInterface
 {
     protected string $source = 'newsletter';
+
     public function handle(array $formData)
     {
         // Handle newsletter signup specific logic

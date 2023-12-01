@@ -2,9 +2,9 @@
 
 namespace Pardalsalcap\LinterLeads\Resources\LeadSpamBlackListResource\Pages;
 
-use Pardalsalcap\LinterLeads\Resources\LeadSpamBlackListResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
+use Pardalsalcap\LinterLeads\Resources\LeadSpamBlackListResource;
 
 class ListLeadSpamBlackLists extends ListRecords
 {

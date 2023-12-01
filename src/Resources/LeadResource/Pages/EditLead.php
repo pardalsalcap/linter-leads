@@ -2,9 +2,9 @@
 
 namespace Pardalsalcap\LinterLeads\Resources\LeadResource\Pages;
 
-use Pardalsalcap\LinterLeads\Resources\LeadResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
+use Pardalsalcap\LinterLeads\Resources\LeadResource;
 
 class EditLead extends EditRecord
 {

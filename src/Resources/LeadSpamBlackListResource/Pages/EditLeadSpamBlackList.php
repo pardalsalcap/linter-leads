@@ -2,10 +2,10 @@
 
 namespace Pardalsalcap\LinterLeads\Resources\LeadSpamBlackListResource\Pages;
 
-use Pardalsalcap\LinterLeads\Resources\LeadSpamBlackListResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 use Pardalsalcap\LinterLeads\Repositories\BlackListRepository;
+use Pardalsalcap\LinterLeads\Resources\LeadSpamBlackListResource;
 
 class EditLeadSpamBlackList extends EditRecord
 {

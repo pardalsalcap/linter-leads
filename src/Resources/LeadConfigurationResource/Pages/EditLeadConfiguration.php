@@ -2,10 +2,10 @@
 
 namespace Pardalsalcap\LinterLeads\Resources\LeadConfigurationResource\Pages;
 
-use Pardalsalcap\LinterLeads\Resources\LeadConfigurationResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 use Pardalsalcap\LinterLeads\Repositories\LeadConfigurationRepository;
+use Pardalsalcap\LinterLeads\Resources\LeadConfigurationResource;
 
 class EditLeadConfiguration extends EditRecord
 {

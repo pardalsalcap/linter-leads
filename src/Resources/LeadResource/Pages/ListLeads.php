@@ -2,9 +2,9 @@
 
 namespace Pardalsalcap\LinterLeads\Resources\LeadResource\Pages;
 
-use Pardalsalcap\LinterLeads\Resources\LeadResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
+use Pardalsalcap\LinterLeads\Resources\LeadResource;
 use Pardalsalcap\LinterLeads\Resources\LeadResource\Widgets\LeadsChartLastMonth;
 use Pardalsalcap\LinterLeads\Resources\LeadResource\Widgets\LeadsChartLastYear;
 use Pardalsalcap\LinterLeads\Resources\LeadResource\Widgets\LeadsSuccess;
