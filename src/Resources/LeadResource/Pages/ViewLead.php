@@ -20,7 +20,7 @@ class ViewLead extends ViewRecord
     protected function getHeaderActions(): array
     {
         return [
-            DeleteAction::make()
+            DeleteAction::make(),
         ];
     }
 }

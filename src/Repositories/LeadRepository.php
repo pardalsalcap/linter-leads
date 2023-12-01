@@ -28,10 +28,12 @@ class LeadRepository
     {
         return Lead::where('is_read', $read_status)->count();
     }
+
     public static function successCount(bool $success_status = true): int
     {
         return Lead::where('is_success', $success_status)->count();
     }
+
     public static function spamCount(bool $spam_status = true): int
     {
         return Lead::where('is_spam', $spam_status)->count();
@@ -42,7 +44,7 @@ class LeadRepository
         return Lead::where('source', $source)->count();
     }
 
-    public static function flaggedCount (bool $flagged_status = true): int
+    public static function flaggedCount(bool $flagged_status = true): int
     {
         return Lead::where('is_flagged', $flagged_status)->count();
     }

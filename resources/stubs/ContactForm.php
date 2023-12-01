@@ -5,8 +5,6 @@ namespace App\Livewire;
 use Exception;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
-use Pardalsalcap\LinterLeads\Repositories\BlackListRepository;
-use Pardalsalcap\LinterLeads\Repositories\LeadConfigurationRepository;
 use Pardalsalcap\LinterLeads\Services\FormHandler;
 use Pardalsalcap\LinterLeads\Services\Strategies\ContactFormStrategy;
 

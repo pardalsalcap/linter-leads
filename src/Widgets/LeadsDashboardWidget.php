@@ -2,12 +2,11 @@
 
 namespace Pardalsalcap\LinterLeads\Widgets;
 
-use Filament\Tables\Columns\TextColumn;
-use Pardalsalcap\LinterLeads\Models\Lead;
-use Closure;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Widgets\TableWidget as BaseWidget;
 use Illuminate\Database\Eloquent\Builder;
+use Pardalsalcap\LinterLeads\Models\Lead;
 use Pardalsalcap\LinterLeads\Resources\LeadResource;
 
 class LeadsDashboardWidget extends BaseWidget
@@ -28,7 +27,7 @@ class LeadsDashboardWidget extends BaseWidget
                 ->label(__('linter-leads::leads.contact_email_field'))
                 ->searchable(['name', 'email'])
                 ->formatStateUsing(function (Lead $record) {
-                    return (!empty($record->name) ? $record->name . '<br />' : '') . $record->email;
+                    return (! empty($record->name) ? $record->name.'<br />' : '').$record->email;
                 })
                 ->html(),
             TextColumn::make('created_at')

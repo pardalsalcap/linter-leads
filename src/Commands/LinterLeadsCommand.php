@@ -30,7 +30,6 @@ class LinterLeadsCommand extends Command
                 'is_active' => true,
             ]);
 
-
         }
 
         $this->comment('All done');

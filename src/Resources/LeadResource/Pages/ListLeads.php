@@ -41,42 +41,42 @@ class ListLeads extends ListRecords
     public function getTabs(): array
     {
         return [
-            "all"=>Tab::make('All'),
-            "new" => Tab::make('New')
+            'all' => Tab::make('All'),
+            'new' => Tab::make('New')
                 ->modifyQueryUsing(function ($query) {
                     return $query->where('status', 'new');
                 })
-            ->badge(function () {
-                return LeadRepository::byStatusCount('new');
-            }),
-            "read" => Tab::make('Read')
+                ->badge(function () {
+                    return LeadRepository::byStatusCount('new');
+                }),
+            'read' => Tab::make('Read')
                 ->modifyQueryUsing(function ($query) {
                     return $query->where('is_read', true);
                 })
                 ->badge(function () {
                     return LeadRepository::readCount(true);
                 }),
-            "unread" => Tab::make('Unread')
+            'unread' => Tab::make('Unread')
                 ->modifyQueryUsing(function ($query) {
                     return $query->where('is_read', false);
                 })
                 ->badge(function () {
                     return LeadRepository::readCount(false);
                 }),
-            "success" => Tab::make('Success')
+            'success' => Tab::make('Success')
                 ->modifyQueryUsing(function ($query) {
                     return $query->where('is_success', true);
                 })
                 ->badge(function () {
                     return LeadRepository::successCount(true);
                 }),
-            "spam" => Tab::make('Spam')
+            'spam' => Tab::make('Spam')
                 ->modifyQueryUsing(function ($query) {
                     return $query->where('is_spam', true);
                 })->badge(function () {
                     return LeadRepository::spamCount(true);
                 }),
-            "flagged" => Tab::make('Flagged')
+            'flagged' => Tab::make('Flagged')
                 ->modifyQueryUsing(function ($query) {
                     return $query->where('is_flagged', true);
                 })->badge(function () {
