@@ -1,6 +1,5 @@
 <?php
 
-namespace Pardalsalcap\LinterLeads\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Pardalsalcap\LinterLeads\Models\Lead;
@@ -8,7 +7,7 @@ use Pardalsalcap\LinterLeads\Models\Lead;
 /**
  * @extends Factory<Lead>
  */
-class LeadFactory extends Factory
+class   LeadFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -23,7 +22,7 @@ class LeadFactory extends Factory
             'phone' => fake()->phoneNumber(),
             'company' => fake()->company(),
             'city' => fake()->city(),
-            'state' => fake('en_US')->state(),
+            'state' => fake()->name(),
             'country' => fake()->country(),
             'message' => fake()->text(100),
             'source' => fake()->randomElement(['contact', 'newsletter']),
