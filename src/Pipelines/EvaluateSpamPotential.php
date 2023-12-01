@@ -30,7 +30,7 @@ class EvaluateSpamPotential
         $this->evaluateIp($lead);
     }
 
-    protected function evaluateLinks(Lead $lead)
+    protected function evaluateLinks(Lead $lead): void
     {
         // Evaluate a max of links the message can contain
         if ($this->repository->getParameterStatus('check_links')) {
@@ -38,7 +38,7 @@ class EvaluateSpamPotential
         }
     }
 
-    public function evaluateHtml(Lead $lead)
+    public function evaluateHtml(Lead $lead): void
     {
         // Evaluate if the message contains any HTML
         if ($this->repository->getParameterStatus('check_html')) {
@@ -48,7 +48,7 @@ class EvaluateSpamPotential
         }
     }
 
-    public function evaluateBlackList(Lead $lead)
+    public function evaluateBlackList(Lead $lead): void
     {
         // Evaluate if the message contains any blacklisted words
         if ($this->repository->getParameterStatus('check_black_list')) {
@@ -61,7 +61,7 @@ class EvaluateSpamPotential
         }
     }
 
-    public function evaluateIp(Lead $lead)
+    public function evaluateIp(Lead $lead): void
     {
         // Check if the same IP has any spam reported messages
         if ($this->repository->getParameterStatus('check_ip')) {
