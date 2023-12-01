@@ -2,7 +2,7 @@
 
 namespace Pardalsalcap\LinterLeads\Resources\LeadConfigurationResource\Pages;
 
-use App\Filament\Resources\LeadConfigurationResource;
+use Pardalsalcap\LinterLeads\Resources\LeadConfigurationResource;
 use Filament\Resources\Pages\CreateRecord;
 use Pardalsalcap\LinterLeads\Repositories\LeadConfigurationRepository;
 

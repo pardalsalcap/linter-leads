@@ -22,7 +22,7 @@ class LeadInteraction extends Model
     use \Illuminate\Database\Eloquent\SoftDeletes;
 
     /**
-     * @var array
+     * @var array<string>
      */
     protected $fillable = ['lead_id', 'user_id', 'type', 'note', 'status', 'created_at', 'updated_at', 'deleted_at'];
 

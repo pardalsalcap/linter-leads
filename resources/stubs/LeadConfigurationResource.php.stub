@@ -1,0 +1,7 @@
+<?php
+
+
+class LeadConfigurationResource extends \Pardalsalcap\LinterLeads\Resources\LeadConfigurationResource
+{
+
+}

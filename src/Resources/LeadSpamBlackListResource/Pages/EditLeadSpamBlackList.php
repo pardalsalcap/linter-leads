@@ -2,7 +2,7 @@
 
 namespace Pardalsalcap\LinterLeads\Resources\LeadSpamBlackListResource\Pages;
 
-use App\Filament\Resources\LeadSpamBlackListResource;
+use Pardalsalcap\LinterLeads\Resources\LeadSpamBlackListResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 use Pardalsalcap\LinterLeads\Repositories\BlackListRepository;

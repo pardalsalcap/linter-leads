@@ -15,6 +15,7 @@ use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Table;
+use Filament\Widgets\Widget;
 use Illuminate\Database\Eloquent\Builder;
 use Pardalsalcap\LinterLeads\Models\Lead;
 use Pardalsalcap\LinterLeads\Repositories\LeadRepository;
@@ -50,7 +51,7 @@ class LeadResource extends Resource
                     ->label(__('linter-leads::leads.contact_email_field'))
                     ->searchable(['name', 'email'])
                     ->formatStateUsing(function (Lead $record) {
-                        return (! empty($record->name) ? $record->name.'<br />' : '').$record->email;
+                        return (!empty($record->name) ? $record->name . '<br />' : '') . $record->email;
                     })
                     ->html(),
                 TextColumn::make('created_at')
@@ -60,16 +61,16 @@ class LeadResource extends Resource
                 TextColumn::make('status')
                     ->label(__('linter-leads::leads.status_column'))
                     ->badge()
-                    ->color(fn (string $state): string => match ($state) {
+                    ->color(fn(string $state): string => match ($state) {
                         'new' => 'gray',
                         'read' => 'info',
                         'follow_up' => 'warning',
                         'fail' => 'danger',
                         'success' => 'success',
-                        'closed' => 'black',
+                        default => 'black',
                     })
                     ->sortable()
-                    ->formatStateUsing(fn (string $state) => __('linter-leads::status.'.$state)),
+                    ->formatStateUsing(fn(string $state) => __('linter-leads::status.' . $state)),
                 IconColumn::make('is_read')
                     ->boolean()
                     ->label(__('linter-leads::leads.contact_read'))
@@ -86,13 +87,13 @@ class LeadResource extends Resource
             ->filters([
                 Filter::make('is_unread')
                     ->label(__('linter-leads::leads.contact_read_0'))
-                    ->query(fn (Builder $query): Builder => $query->where('is_read', false)),
+                    ->query(fn(Builder $query): Builder => $query->where('is_read', false)),
                 Filter::make('spam')
                     ->label(__('linter-leads::leads.contact_spam_1'))
-                    ->query(fn (Builder $query): Builder => $query->where('is_spam', true)),
+                    ->query(fn(Builder $query): Builder => $query->where('is_spam', true)),
                 Filter::make('is_success')
                     ->label(__('linter-leads::leads.contact_success_1'))
-                    ->query(fn (Builder $query): Builder => $query->where('is_success', true)),
+                    ->query(fn(Builder $query): Builder => $query->where('is_success', true)),
             ])
             ->actions([
                 ViewAction::make(),
@@ -104,8 +105,12 @@ class LeadResource extends Resource
             ]);
     }
 
+    /**
+     * @return array<class-string<Widget>>
+     */
     public static function getWidgets(): array
     {
+        /** @phpstan-ignore-next-line  */
         return [
             LeadsSuccess::make(),
             LeadsTotal::make(),
@@ -163,7 +168,7 @@ class LeadResource extends Resource
                             ->schema([
                                 TextEntry::make('status')
                                     ->badge()
-                                    ->color(fn (string $state): string => match ($state) {
+                                    ->color(fn(string $state): string => match ($state) {
                                         'new' => 'gray',
                                         'read' => 'info',
                                         'follow_up' => 'warning',
@@ -171,7 +176,7 @@ class LeadResource extends Resource
                                         'success' => 'success',
                                         default => 'primary',
                                     })
-                                    ->formatStateUsing(fn (string $state) => __('linter-leads::status.'.$state)),
+                                    ->formatStateUsing(fn(string $state) => __('linter-leads::status.' . $state)),
                                 TextEntry::make('name')
                                     ->label(__('linter-leads::form.contact_name_field'))
                                     ->visible(function (Lead $record) {
@@ -200,7 +205,7 @@ class LeadResource extends Resource
                                     }),
                                 TextEntry::make('message')
                                     ->label(__('linter-leads::form.contact_message_field'))
-                                    ->formatStateUsing(fn (string $state) => nl2br($state))
+                                    ->formatStateUsing(fn(string $state) => nl2br($state))
                                     ->visible(function (Lead $record) {
                                         return LeadRepository::showFieldInInfoList($record, 'phone');
                                     }),
@@ -212,16 +217,16 @@ class LeadResource extends Resource
                             ->schema([
                                 TextEntry::make('source')
                                     ->label(__('linter-leads::leads.contact_source_field'))
-                                    ->formatStateUsing(fn (string $state) => __('linter-leads::types.'.$state)),
+                                    ->formatStateUsing(fn(string $state) => __('linter-leads::types.' . $state)),
                                 TextEntry::make('created_at')
                                     ->label(__('linter-leads::leads.contact_created_at_field'))
                                     ->dateTime(config('linter.date_time_format_tables')),
                                 TextEntry::make('ip')
                                     ->label(__('linter-leads::leads.contact_ip_field')),
-                                TextEntry::make('read')
+                                TextEntry::make('is_read')
                                     ->label(__('linter-leads::leads.contact_read'))
                                     ->formatStateUsing(function (Lead $lead) {
-                                        if ($lead->read) {
+                                        if ($lead->is_read) {
                                             return __('linter-leads::leads.contact_read_1');
                                         }
 
@@ -233,11 +238,11 @@ class LeadResource extends Resource
                                             ->icon('heroicon-m-envelope')
                                             ->requiresConfirmation()
                                             ->action(function (Lead $lead) {
-                                                $lead->read = true;
+                                                $lead->is_read = true;
                                                 $lead->save();
                                             })
                                             ->visible(function (Lead $lead) {
-                                                return $lead->read == 0;
+                                                return $lead->is_read == 0;
                                             }),
                                     )
                                     ->hintAction(
@@ -246,17 +251,17 @@ class LeadResource extends Resource
                                             ->icon('heroicon-m-envelope-open')
                                             ->requiresConfirmation()
                                             ->action(function (Lead $lead) {
-                                                $lead->read = false;
+                                                $lead->is_read = false;
                                                 $lead->save();
                                             })
                                             ->visible(function (Lead $lead) {
-                                                return $lead->read == 1;
+                                                return $lead->is_read == 1;
                                             }),
                                     ),
-                                TextEntry::make('spam')
+                                TextEntry::make('is_spam')
                                     ->label(__('linter-leads::leads.contact_spam'))
                                     ->formatStateUsing(function (Lead $lead) {
-                                        if ($lead->spam) {
+                                        if ($lead->is_spam) {
                                             return __('linter-leads::leads.contact_spam_1');
                                         }
 
@@ -268,11 +273,11 @@ class LeadResource extends Resource
                                             ->icon('heroicon-m-bug-ant')
                                             ->requiresConfirmation()
                                             ->action(function (Lead $lead) {
-                                                $lead->spam = true;
+                                                $lead->is_spam = true;
                                                 $lead->save();
                                             })
                                             ->visible(function (Lead $lead) {
-                                                return $lead->spam == 0;
+                                                return $lead->is_spam == 0;
                                             }),
                                     )
                                     ->hintAction(
@@ -281,33 +286,33 @@ class LeadResource extends Resource
                                             ->icon('heroicon-m-star')
                                             ->requiresConfirmation()
                                             ->action(function (Lead $lead) {
-                                                $lead->spam = false;
+                                                $lead->is_spam = false;
                                                 $lead->save();
                                             })
                                             ->visible(function (Lead $lead) {
-                                                return $lead->spam == 1;
+                                                return $lead->is_spam == 1;
                                             }),
                                     ),
-                                TextEntry::make('success')
+                                TextEntry::make('is_success')
                                     ->label(__('linter-leads::leads.contact_success'))
                                     ->formatStateUsing(function (Lead $lead) {
-                                        if ($lead->success) {
+                                        if ($lead->is_success) {
                                             return __('linter-leads::leads.contact_success_1');
                                         }
 
                                         return __('linter-leads::leads.contact_success_0');
                                     })
                                     ->hintAction(
-                                        Actions\Action::make('success')
+                                        Actions\Action::make('is_success')
                                             ->label(__('linter-leads::leads.contact_mark_as_success'))
                                             ->icon('heroicon-m-sparkles')
                                             ->requiresConfirmation()
                                             ->action(function (Lead $lead) {
-                                                $lead->success = true;
+                                                $lead->is_success = true;
                                                 $lead->save();
                                             })
                                             ->visible(function (Lead $lead) {
-                                                return $lead->success == 0;
+                                                return $lead->is_success == 0;
                                             }),
                                     )
                                     ->hintAction(
@@ -316,11 +321,11 @@ class LeadResource extends Resource
                                             ->icon('heroicon-m-question-mark-circle')
                                             ->requiresConfirmation()
                                             ->action(function (Lead $lead) {
-                                                $lead->success = false;
+                                                $lead->is_success = false;
                                                 $lead->save();
                                             })
                                             ->visible(function (Lead $lead) {
-                                                return $lead->success == 1;
+                                                return $lead->is_success == 1;
                                             }),
                                     ),
                             ]),

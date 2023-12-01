@@ -9,5 +9,5 @@ return [
     'phone_field' => 'Teléfono',
     'name_field' => 'Nombre',
     'message_field' => 'Mensaje',
-    'footer' => 'Tienes una copia de esta información en la administración de la web por si este mail se pierde en algún momento.<br/>Si haces clic a responder a este correu se enviará al mail del cliente, pero ten en cuenta que este mensaje estará en la conversación, quizás no quieres que esto suceda.<br /><br /> Mucha suerte con este contacto!',
+    'footer' => 'Tienes una copia de esta información en la administración de la web por si este mail se pierde en algún momento.<br/>Si haces clic a responder a este correu se enviará al mail del cliente, pero ten en cuenta que este mensaje estará en la conversación, quizás no quieres que esto suceda.<br /><br /> ¡Mucha suerte con este contacto!',
 ];

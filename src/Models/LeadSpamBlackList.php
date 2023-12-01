@@ -22,7 +22,7 @@ class LeadSpamBlackList extends Model
     protected $table = 'lead_spam_black_list';
 
     /**
-     * @var array
+     * @var array<string>
      */
     protected $fillable = ['word', 'slug', 'is_active', 'created_at', 'updated_at'];
 }
