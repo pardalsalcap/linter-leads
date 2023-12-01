@@ -1,7 +1,12 @@
 <?php
 
+namespace App\Livewire;
+
 use Exception;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
+use Pardalsalcap\LinterLeads\Repositories\BlackListRepository;
+use Pardalsalcap\LinterLeads\Repositories\LeadConfigurationRepository;
 use Pardalsalcap\LinterLeads\Services\FormHandler;
 use Pardalsalcap\LinterLeads\Services\Strategies\ContactFormStrategy;
 
@@ -62,6 +67,11 @@ class ContactForm extends Component
             if (! $success) {
                 throw new Exception(__('linter-leads::form.error_saving_lead'));
             }
+
+            if (! $success->is_spam) {
+                Mail::to(config('linter-leads.lead_manager_email'), config('linter-leads.lead_manager_name'))->send(new \Pardalsalcap\LinterLeads\Mail\SendLead($success));
+            }
+
             $this->success = true;
             $this->name = '';
             $this->company = '';
