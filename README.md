@@ -5,7 +5,7 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/pardalsalcap/linter-leads/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/pardalsalcap/linter-leads/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/pardalsalcap/linter-leads.svg?style=flat-square)](https://packagist.org/packages/pardalsalcap/linter-leads)
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+V3.0.0 Last update for Filament 3
 
 ## Support us
 
