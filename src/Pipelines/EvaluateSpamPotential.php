@@ -14,7 +14,7 @@ class EvaluateSpamPotential
 
     public function handle(Lead $lead, $next)
     {
-        $this->repository = new LeadConfigurationRepository();
+        $this->repository = new LeadConfigurationRepository;
         // Evaluate the spam potential of the lead
         $this->calculate($lead);
         $lead->score = $lead->score + $this->score;
@@ -52,7 +52,7 @@ class EvaluateSpamPotential
     {
         // Evaluate if the message contains any blacklisted words
         if ($this->repository->getParameterStatus('check_black_list')) {
-            $repository = new BlackListRepository();
+            $repository = new BlackListRepository;
             foreach ($repository->getBlackList() as $blacklistedWord) {
                 if (stripos($lead->message, $blacklistedWord->word) !== false) {
                     $this->score += 1;

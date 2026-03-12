@@ -17,7 +17,7 @@ class CreateLeadConfiguration extends CreateRecord
 
     protected function afterCreate(): void
     {
-        $repository = new LeadConfigurationRepository();
+        $repository = new LeadConfigurationRepository;
         $repository->refreshCache();
     }
 }

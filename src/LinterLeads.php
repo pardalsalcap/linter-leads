@@ -2,6 +2,4 @@
 
 namespace Pardalsalcap\LinterLeads;
 
-class LinterLeads
-{
-}
+class LinterLeads {}

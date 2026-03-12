@@ -24,7 +24,7 @@ class LeadConfigurationResource extends Resource
 {
     protected static ?string $model = LeadConfiguration::class;
 
-    protected static string | BackedEnum | null $navigationIcon = 'heroicon-o-cog-8-tooth';
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-cog-8-tooth';
 
     protected static ?int $navigationSort = 2;
 
@@ -62,7 +62,7 @@ class LeadConfigurationResource extends Resource
                 ToggleColumn::make('is_active')
                     ->label(__('linter-leads::configuration.is_active'))
                     ->afterStateUpdated(function ($record, $state) {
-                        (new LeadConfigurationRepository())->refreshCache();
+                        (new LeadConfigurationRepository)->refreshCache();
                     })
                     ->sortable(),
 

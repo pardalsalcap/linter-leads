@@ -32,7 +32,7 @@ class LeadResource extends Resource
 {
     protected static ?string $model = Lead::class;
 
-    protected static string | BackedEnum | null $navigationIcon = 'heroicon-o-star';
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-star';
 
     protected static ?int $navigationSort = 1;
 
@@ -102,7 +102,7 @@ class LeadResource extends Resource
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
-                    //Tables\Actions\DeleteBulkAction::make(),
+                    // Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }
@@ -332,7 +332,7 @@ class LeadResource extends Resource
                             ]),
                     ]),
 
-                //['content_id', '', 'surname', '', '', '', '', '', 'type', 'ip', 'read', 'spam', 'success', 'data', 'created_at', 'updated_at'];
+                // ['content_id', '', 'surname', '', '', '', '', '', 'type', 'ip', 'read', 'spam', 'success', 'data', 'created_at', 'updated_at'];
             ]);
     }
 

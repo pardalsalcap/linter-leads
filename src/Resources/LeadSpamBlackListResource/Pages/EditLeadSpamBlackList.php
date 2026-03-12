@@ -15,7 +15,7 @@ class EditLeadSpamBlackList extends EditRecord
     {
         return [
             Actions\DeleteAction::make()->after(function () {
-                $repository = new BlackListRepository();
+                $repository = new BlackListRepository;
                 $repository->refreshCache();
             }),
         ];
@@ -23,7 +23,7 @@ class EditLeadSpamBlackList extends EditRecord
 
     protected function afterSave(): void
     {
-        $repository = new BlackListRepository();
+        $repository = new BlackListRepository;
         $repository->refreshCache();
     }
 }

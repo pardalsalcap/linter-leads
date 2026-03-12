@@ -34,7 +34,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property Carbon $deleted_at
- * @property \Illuminate\Database\Eloquent\Model $user
+ * @property Model $user
  * @property LeadInteraction[] $leadInteractions
  */
 class Lead extends Model

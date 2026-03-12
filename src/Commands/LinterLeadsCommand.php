@@ -4,6 +4,9 @@ namespace Pardalsalcap\LinterLeads\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
+use Pardalsalcap\LinterLeads\Models\LeadConfiguration;
+use Pardalsalcap\LinterLeads\Models\LeadSpamBlackList;
 
 class LinterLeadsCommand extends Command
 {
@@ -46,8 +49,8 @@ class LinterLeadsCommand extends Command
         if ($this->confirm('This command will install Linter Leads, it will populate the database with the default configuration and the blacklisted words. Do you wish to continue?')) {
             $blacklist = json_decode(file_get_contents($this->stubs_path.'blacklist.json'), true);
             foreach ($blacklist as $word) {
-                \Pardalsalcap\LinterLeads\Models\LeadSpamBlackList::firstOrCreate([
-                    'slug' => \Illuminate\Support\Str::slug($word),
+                LeadSpamBlackList::firstOrCreate([
+                    'slug' => Str::slug($word),
                 ], [
                     'word' => $word,
                     'is_active' => true,
@@ -57,7 +60,7 @@ class LinterLeadsCommand extends Command
 
         if ($this->confirm('Do you wish to populate the configuration table?')) {
             foreach ($this->default_configuration as $config) {
-                \Pardalsalcap\LinterLeads\Models\LeadConfiguration::firstOrCreate([
+                LeadConfiguration::firstOrCreate([
                     'parameter' => $config,
                 ], [
                     'is_active' => true,

@@ -6,10 +6,7 @@ use Pardalsalcap\LinterLeads\Services\Strategies\FormStrategyInterface;
 
 class FormHandler
 {
-    public function __construct(protected FormStrategyInterface $strategy)
-    {
-
-    }
+    public function __construct(protected FormStrategyInterface $strategy) {}
 
     public function handle(array $leadData)
     {
