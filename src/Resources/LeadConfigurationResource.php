@@ -2,14 +2,15 @@
 
 namespace Pardalsalcap\LinterLeads\Resources;
 
-use Filament\Forms\Components\Section;
+use BackedEnum;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Tables\Actions\BulkActionGroup;
-use Filament\Tables\Actions\DeleteBulkAction;
-use Filament\Tables\Actions\EditAction;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
@@ -23,14 +24,14 @@ class LeadConfigurationResource extends Resource
 {
     protected static ?string $model = LeadConfiguration::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-cog-8-tooth';
+    protected static string | BackedEnum | null $navigationIcon = 'heroicon-o-cog-8-tooth';
 
     protected static ?int $navigationSort = 2;
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
+        return $schema
+            ->components([
                 Section::make()->schema([
                     TextInput::make('parameter')
                         ->label(__('linter-leads::configuration.parameter'))
@@ -69,10 +70,10 @@ class LeadConfigurationResource extends Resource
             ->filters([
                 //
             ])
-            ->actions([
+            ->recordActions([
                 EditAction::make(),
             ])
-            ->bulkActions([
+            ->toolbarActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
                 ]),

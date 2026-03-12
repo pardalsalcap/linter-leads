@@ -15,14 +15,14 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $updated_at
  * @property string $deleted_at
  * @property Lead $lead
- * @property User $user
+ * @property \Illuminate\Database\Eloquent\Model $user
  */
 class LeadInteraction extends Model
 {
     use \Illuminate\Database\Eloquent\SoftDeletes;
 
     /**
-     * @var array<string>
+     * @var list<string>
      */
     protected $fillable = ['lead_id', 'user_id', 'type', 'note', 'status', 'created_at', 'updated_at', 'deleted_at'];
 

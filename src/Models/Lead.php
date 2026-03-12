@@ -34,7 +34,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property Carbon $deleted_at
- * @property User $user
+ * @property \Illuminate\Database\Eloquent\Model $user
  * @property LeadInteraction[] $leadInteractions
  */
 class Lead extends Model
@@ -42,7 +42,7 @@ class Lead extends Model
     use HasFactory, SoftDeletes;
 
     /**
-     * @var array<string>
+     * @var list<string>
      */
     protected $fillable = ['assigned_to', 'name', 'surname', 'email', 'phone', 'company', 'city', 'state', 'country', 'subject', 'message', 'source', 'ip', 'is_read', 'is_spam', 'is_success', 'is_flagged', 'score', 'status', 'data', 'created_at', 'updated_at', 'deleted_at'];
 
