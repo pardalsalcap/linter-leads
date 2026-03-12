@@ -15,7 +15,7 @@ class EditLeadConfiguration extends EditRecord
     {
         return [
             Actions\DeleteAction::make()->after(function () {
-                $repository = new LeadConfigurationRepository();
+                $repository = new LeadConfigurationRepository;
                 $repository->refreshCache();
             }),
         ];
@@ -23,7 +23,7 @@ class EditLeadConfiguration extends EditRecord
 
     protected function afterSave(): void
     {
-        $repository = new LeadConfigurationRepository();
+        $repository = new LeadConfigurationRepository;
         $repository->refreshCache();
     }
 }

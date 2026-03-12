@@ -29,7 +29,7 @@ class ContactFormStrategy implements FormStrategyInterface
 
     public function processData($leadData)
     {
-        $lead = new Lead();
+        $lead = new Lead;
         $lead->fill($leadData);
         $lead->source = $this->source;
         $lead->score = 0;

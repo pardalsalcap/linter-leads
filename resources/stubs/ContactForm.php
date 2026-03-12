@@ -5,6 +5,7 @@ namespace App\Livewire;
 use Exception;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
+use Pardalsalcap\LinterLeads\Mail\SendLead;
 use Pardalsalcap\LinterLeads\Services\FormHandler;
 use Pardalsalcap\LinterLeads\Services\Strategies\ContactFormStrategy;
 
@@ -32,7 +33,7 @@ class ContactForm extends Component
 
     public bool $simple_module = false;
 
-    public function mount(string $content = null, bool $simple = false)
+    public function mount(?string $content = null, bool $simple = false)
     {
         if (! is_null($content)) {
             $this->content_id = $content->id;
@@ -59,7 +60,7 @@ class ContactForm extends Component
                 'data' => [],
             ];
 
-            $formHandler = new FormHandler(new ContactFormStrategy());
+            $formHandler = new FormHandler(new ContactFormStrategy);
             $success = $formHandler->handle($lead);
 
             if (! $success) {
@@ -67,7 +68,7 @@ class ContactForm extends Component
             }
 
             if (! $success->is_spam) {
-                Mail::to(config('linter-leads.lead_manager_email'), config('linter-leads.lead_manager_name'))->send(new \Pardalsalcap\LinterLeads\Mail\SendLead($success));
+                Mail::to(config('linter-leads.lead_manager_email'), config('linter-leads.lead_manager_name'))->send(new SendLead($success));
             }
 
             $this->success = true;

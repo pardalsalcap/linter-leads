@@ -3,8 +3,8 @@
 namespace Pardalsalcap\LinterLeads\Resources\LeadResource\Pages;
 
 use Filament\Actions;
-use Filament\Resources\Components\Tab;
 use Filament\Resources\Pages\ListRecords;
+use Filament\Schemas\Components\Tabs\Tab;
 use Pardalsalcap\LinterLeads\Repositories\LeadRepository;
 use Pardalsalcap\LinterLeads\Resources\LeadResource;
 use Pardalsalcap\LinterLeads\Resources\LeadResource\Widgets\LeadsChartLastMonth;

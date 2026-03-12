@@ -3,6 +3,7 @@
 namespace Pardalsalcap\LinterLeads\Repositories;
 
 use Illuminate\Support\Facades\Cache;
+use Pardalsalcap\LinterLeads\Models\LeadSpamBlackList;
 
 class BlackListRepository
 {
@@ -15,7 +16,7 @@ class BlackListRepository
 
     public function refreshCache()
     {
-        $blacklist = \Pardalsalcap\LinterLeads\Models\LeadSpamBlackList::where('is_active', true)->get();
+        $blacklist = LeadSpamBlackList::where('is_active', true)->get();
         Cache::forever('blacklist', $blacklist);
     }
 

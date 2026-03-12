@@ -3,6 +3,8 @@
 namespace Pardalsalcap\LinterLeads\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property int $id
@@ -15,23 +17,23 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $updated_at
  * @property string $deleted_at
  * @property Lead $lead
- * @property User $user
+ * @property Model $user
  */
 class LeadInteraction extends Model
 {
-    use \Illuminate\Database\Eloquent\SoftDeletes;
+    use SoftDeletes;
 
     /**
-     * @var array<string>
+     * @var list<string>
      */
     protected $fillable = ['lead_id', 'user_id', 'type', 'note', 'status', 'created_at', 'updated_at', 'deleted_at'];
 
-    public function lead(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function lead(): BelongsTo
     {
         return $this->belongsTo('App\Models\Lead');
     }
 
-    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo('App\Models\User');
     }

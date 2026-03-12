@@ -2,15 +2,15 @@
 
 namespace Pardalsalcap\LinterLeads\Resources;
 
-use Filament\Forms\Form;
-use Filament\Infolists\Components\Actions;
-use Filament\Infolists\Components\Group;
-use Filament\Infolists\Components\Section;
+use BackedEnum;
+use Filament\Actions\Action;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\ViewAction;
 use Filament\Infolists\Components\TextEntry;
-use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
-use Filament\Tables\Actions\BulkActionGroup;
-use Filament\Tables\Actions\ViewAction;
+use Filament\Schemas\Components\Group;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Schema;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
@@ -32,14 +32,14 @@ class LeadResource extends Resource
 {
     protected static ?string $model = Lead::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-star';
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-star';
 
     protected static ?int $navigationSort = 1;
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
+        return $schema
+            ->components([
                 //
             ]);
     }
@@ -97,12 +97,12 @@ class LeadResource extends Resource
                     ->label(__('linter-leads::leads.contact_success_1'))
                     ->query(fn (Builder $query): Builder => $query->where('is_success', true)),
             ])
-            ->actions([
+            ->recordActions([
                 ViewAction::make(),
             ])
-            ->bulkActions([
+            ->toolbarActions([
                 BulkActionGroup::make([
-                    //Tables\Actions\DeleteBulkAction::make(),
+                    // Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }
@@ -112,12 +112,11 @@ class LeadResource extends Resource
      */
     public static function getWidgets(): array
     {
-        /** @phpstan-ignore-next-line  */
         return [
-            LeadsSuccess::make(),
-            LeadsTotal::make(),
-            LeadsChartLastMonth::make(),
-            LeadsChartLastYear::make(),
+            LeadsSuccess::class,
+            LeadsTotal::class,
+            LeadsChartLastMonth::class,
+            LeadsChartLastYear::class,
         ];
     }
 
@@ -158,11 +157,11 @@ class LeadResource extends Resource
         return __('linter-leads::leads.navigation_group');
     }
 
-    public static function infolist(Infolist $infolist): Infolist
+    public static function infolist(Schema $schema): Schema
     {
-        return $infolist
+        return $schema
             ->columns(3)
-            ->schema([
+            ->components([
                 Group::make()
                     ->columnSpan(2)
                     ->schema([
@@ -235,7 +234,7 @@ class LeadResource extends Resource
                                         return __('linter-leads::leads.contact_read_0');
                                     })
                                     ->hintAction(
-                                        Actions\Action::make('read')
+                                        Action::make('read')
                                             ->label(__('linter-leads::leads.contact_mark_as_read'))
                                             ->icon('heroicon-m-envelope')
                                             ->requiresConfirmation()
@@ -248,7 +247,7 @@ class LeadResource extends Resource
                                             }),
                                     )
                                     ->hintAction(
-                                        Actions\Action::make('not_read')
+                                        Action::make('not_read')
                                             ->label(__('linter-leads::leads.contact_mark_as_unread'))
                                             ->icon('heroicon-m-envelope-open')
                                             ->requiresConfirmation()
@@ -270,7 +269,7 @@ class LeadResource extends Resource
                                         return __('linter-leads::leads.contact_spam_0');
                                     })
                                     ->hintAction(
-                                        Actions\Action::make('spam')
+                                        Action::make('spam')
                                             ->label(__('linter-leads::leads.contact_mark_as_spam'))
                                             ->icon('heroicon-m-bug-ant')
                                             ->requiresConfirmation()
@@ -283,7 +282,7 @@ class LeadResource extends Resource
                                             }),
                                     )
                                     ->hintAction(
-                                        Actions\Action::make('not_spam')
+                                        Action::make('not_spam')
                                             ->label(__('linter-leads::leads.contact_mark_as_not_spam'))
                                             ->icon('heroicon-m-star')
                                             ->requiresConfirmation()
@@ -305,7 +304,7 @@ class LeadResource extends Resource
                                         return __('linter-leads::leads.contact_success_0');
                                     })
                                     ->hintAction(
-                                        Actions\Action::make('is_success')
+                                        Action::make('is_success')
                                             ->label(__('linter-leads::leads.contact_mark_as_success'))
                                             ->icon('heroicon-m-sparkles')
                                             ->requiresConfirmation()
@@ -318,7 +317,7 @@ class LeadResource extends Resource
                                             }),
                                     )
                                     ->hintAction(
-                                        Actions\Action::make('not_success')
+                                        Action::make('not_success')
                                             ->label(__('linter-leads::leads.contact_mark_as_not_success'))
                                             ->icon('heroicon-m-question-mark-circle')
                                             ->requiresConfirmation()
@@ -333,7 +332,7 @@ class LeadResource extends Resource
                             ]),
                     ]),
 
-                //['content_id', '', 'surname', '', '', '', '', '', 'type', 'ip', 'read', 'spam', 'success', 'data', 'created_at', 'updated_at'];
+                // ['content_id', '', 'surname', '', '', '', '', '', 'type', 'ip', 'read', 'spam', 'success', 'data', 'created_at', 'updated_at'];
             ]);
     }
 

@@ -13,7 +13,7 @@ class LeadsTotal extends BaseWidget
 
     protected function getStats(): array
     {
-        //diffForHumans
+        // diffForHumans
         $total_leads = 0;
         $total_leads_description = __('linter-leads::leads.no_leads_yet');
         $total_leads_this_week_description = __('linter-leads::leads.no_leads_yet');
@@ -47,15 +47,15 @@ class LeadsTotal extends BaseWidget
         return [
             Stat::make(__('linter-leads::leads.stats_total_title'), $total_leads)
                 ->description($total_leads_description)
-            //->descriptionIcon('heroicon-m-arrow-trending-up')
+            // ->descriptionIcon('heroicon-m-arrow-trending-up')
             ,
             Stat::make(__('linter-leads::leads.stats_total_current_week_title'), $total_leads_this_week)
                 ->description($total_leads_this_week_description)
-            //->descriptionIcon('heroicon-m-arrow-trending-up')
+            // ->descriptionIcon('heroicon-m-arrow-trending-up')
             ,
             Stat::make(__('linter-leads::leads.stats_total_last_week_title'), $total_leads_last_week)
                 ->description($total_leads_last_week_description)
-            //->descriptionIcon('heroicon-m-arrow-trending-up')
+            // ->descriptionIcon('heroicon-m-arrow-trending-up')
             ,
         ];
     }

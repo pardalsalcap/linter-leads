@@ -17,7 +17,7 @@ class CreateLeadSpamBlackList extends CreateRecord
 
     protected function afterCreate(): void
     {
-        $repository = new BlackListRepository();
+        $repository = new BlackListRepository;
         $repository->refreshCache();
     }
 }

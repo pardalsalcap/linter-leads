@@ -11,7 +11,7 @@ class LeadsChartLastYear extends BaseWidget
 {
     protected int|string|array $columnSpan = 1;
 
-    protected static ?string $heading = 'Leads Recibidos este año';
+    protected ?string $heading = 'Leads Recibidos este año';
 
     protected function getData(): array
     {
